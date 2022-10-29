@@ -1,0 +1,48 @@
+name: push-workflow
+
+on: push
+
+jobs:
+ test: 
+  runs-on: ubuntu-latest
+  steps:
+   - name: Get code
+     uses: actions/checkout@v3
+   - name: install nodejs
+     uses: actions/setup-node@v3
+     with:
+      node-version: 16  
+   - name: install dependencies
+     run: npm install
+   - name: test
+     run: npm run test
+ lint: 
+  runs-on: ubuntu-latest
+  needs: test
+  steps:
+   - name: Get code
+     uses: actions/checkout@v3
+   - name: install nodejs
+     uses: actions/setup-node@v3
+     with:
+      node-version: 16  
+   - name: install dependencies
+     run: npm install
+   - name: lint
+     run: npm run lint
+ deploy: 
+  runs-on: ubuntu-latest
+  needs: test
+  steps:
+   - name: Get code
+     uses: actions/checkout@v3
+   - name: install nodejs
+     uses: actions/setup-node@v3
+     with:
+      node-version: 16  
+   - name: install dependencies
+     run: npm install
+   - name: build
+     run: npm run build
+   - name: deploy
+     run: echo "deployment...."  
